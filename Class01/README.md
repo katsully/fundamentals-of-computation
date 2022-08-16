@@ -1,3 +1,7 @@
+# Class 1
+
+This lecture was initially part of a lecture series at New York University and was initially co-written by Craig Pickard.
+
 ## A Short History of Computing
 
 The very first electromechanical computers comprised electric switches driving mechanical relays. Later, around the 1930s, mechanical relays were replaced by vacuum tubes. This greatly increased the capabilities and operating speed of these early machines.
@@ -89,17 +93,21 @@ Hexadecimal follows the same rules as binary and decimal except it's based 16. B
 
 Let's look at the hex number **D8AF**
 
-| D      | 8     | A      | F      |
-| ------ | ----- | ------ | ------ |
-| 13*163 | 8*162 | 10*161 | 15*160 |
+| D                 | 8                | A                 | F                 |
+| ----------------- | ---------------- | ----------------- | ----------------- |
+| 13*16<sup>3</sup> | 8*16<sup>2</sup> | 10*16<sup>1</sup> | 15*16<sup>0</sup> |
 
-This converts to 55471 in decimal.
+So we can think of #D8AF as (13 x 16<sup>3</sup>) + (8 x 16<sup>2</sup>) + (10 x 16<sup>1</sup>) + (15 x 16<sup>0</sup>) which is 55471 in decimal.
+
+So why use hexadecimal? Hex codes are used as a way to make binary more human readable (maybe not all humans but that's not the point). Computers cannot read hex, and any hex codes it encounters are translated to binary. While it seems wild to think hexadecimal is more user-friendly, #FF6600 (also know as orange) is certainly easier than 1111 1111 0110 0110 0000 0000. As you get further into programming, you may also notice hex codes in your error messages. This refers to a specific memory location which can be helpful in the debugging process... but we'll get to that later.
 
 ## Bits and Bytes
 
-As we mentioned previously, a 'bit' is a 'binary digit'. Now that we understand a little more about binary, it's time to introduce the concept of a 'byte'. A byte is simply a collection of 8 individual bits - In other words 28 (256) possible combinations. If you're old enough to remember the early days of personal computers and floppy disks, you might remember that they stored around 1.44 megabytes of data. Let's think about that for a second... the prefix 'mega' denotes 106 or ( 1 000 000 ), so a 'mega'-'byte' is essentially 106 x 28 bits. That's 256,000,000 individual 1s and 0s. However, this isn't 100% correct... because computer's think in 1s and 0s ( ie binary numbers ), it makes sense that values are stored as powers of two. In other words, instead of a kilobyte (ie, 1kb) being 103, or 1000 bytes, it is in fact 210 bytes ( or 1024 bytes ). Just remember that computers think in binary, ie powers of 2!
+As we mentioned previously, a 'bit' is a 'binary digit'. Now that we understand a little more about binary, it's time to introduce the concept of a 'byte'. A byte is simply a collection of 8 individual bits - In other words 2<sup>8</sup> (256) possible combinations. If you're old enough to remember the early days of personal computers and floppy disks, you might remember that they stored around 1.44 megabytes of data. Let's think about that for a second... the prefix 'mega' denotes 10<sup>6</sup> or ( 1 000 000 ), so a 'mega'-'byte' is essentially 10<sup>6</sup> x 2<sup>8</sup> bits. That's 256,000,000 individual 1s and 0s. However, this isn't 100% correct... because computer's think in 1s and 0s ( ie binary numbers ), it makes sense that values are stored as powers of two. In other words, instead of a kilobyte (ie, 1kb) being 10<sup>3</sup>, or 1000 bytes, it is in fact 210 bytes ( or 1024 bytes ). Just remember that computers think in binary, ie powers of 2!
 
 Let's pause and take a second to think about what a byte actually is. We already know that a byte is a combination of 8 consecutive bits. But what's the significance of this? If you recall, the RGB colour system uses values from 0-255. Coincidence? I think not! Each colour channel stores exactly 1 byte of data, or a value from 0 to 255. This means that in order to represent the colour of a single pixel, we need exactly 3 bytes of memory, or enough space to store 3 x 8bits at a resolution of 0-255.
+
+![large](C:\Users\kat.sullivan\School\Classes\fundamentals-of-computation\Class01\large.png)
 
 In a very simple sense, your computer's memory is represented in physical space by a collection of transistors ( hundreds of millions of them ). In order to store the colour information for a single pixel we need 3 bytes, or 24 bits, which means 24 individual transistors will hold the desired combination of high and low charges, representing the 0 and 1 values.
 
@@ -109,28 +117,30 @@ As it turns out, 8bits of data (or a single byte) is a very convenient size for 
 
 ASCII is an abbreviation for *American Standard Code for Information Interchange*. It's a character-encoding scheme used to represent text in a computer. Each ASCII character can be stored in a single byte because it's represented by a decimal number within the range of 0-255. The image below shows the ASCII character table. Each character is represented by a decimal number, which is in turn stored in binary as a combination of 8 bits. For example, the lowercase 'a' is represented in decimal as 97. This would be stored in a single byte of memory as the binary number 1100001.
 
+*Note that ASCII is only used for the English language. Unicode uses between 8 and 32 bits of data to represent characters from a more diverse group of languages.*
+
 Below is a table showing the mapping of ASCII characters to their decimal representation. [![Image of Yaktocat](https://camo.githubusercontent.com/c267688163f9434ec46f719f31c47038724e59d485a91a371fe63e76305062a4/687474703a2f2f7777772e617363696963686172732e636f6d2f5f736974655f6d656469612f61736369692f61736369692d63686172732d6c616e6473636170652e6a7067)](https://camo.githubusercontent.com/c267688163f9434ec46f719f31c47038724e59d485a91a371fe63e76305062a4/687474703a2f2f7777772e617363696963686172732e636f6d2f5f736974655f6d656469612f61736369692f61736369692d63686172732d6c616e6473636170652e6a7067)
 
 ## Memory
 
-If you work with, or even on, a computer, there's a good chance you've heard someone refer to its 'memory', but what exactly does that mean? At this point it's important to make the distinction between 'memory' and 'storage'. Your computer's hard disk drive (HDD) is a data storage device. Traditional HDDs use rigid rapidly rotating discs covered with magnetic material. Magnetic heads on moving actuator arms read and write data to these discs. 'Saving' a file on your computer's hard drive involves the moving actuator arms writing data to the disc by magnetising specific 'sectors' on the disc iteslf. This 'permanent' storage is known as non-volatile memory. The term 'non-volatile' refers to the fact that the data is retained, even after the HDD is powered off. Anoter form of storage happens in *flash memory*. Portable storage devices like USB drives make use of flash memory and are referred to as Solid State Drives ( SSD ). SSDs make use of semiconductor chips, rather than magnetic media, to store data.
+If you work with a computer, there's a good chance you've heard someone refer to its 'memory', but what exactly does that mean? At this point it's important to make the distinction between 'memory' and 'storage'. Your computer's hard disk drive (HDD) is a data storage device. Traditional HDDs use rigid rapidly rotating discs covered with magnetic material. Magnetic heads on moving actuator arms read and write data to these discs. 'Saving' a file on your computer's hard drive involves the moving actuator arms writing data to the disc by magnetizing specific 'sectors' on the disc itself. This 'permanent' storage is known as non-volatile memory. The term 'non-volatile' refers to the fact that the data is retained, even after the HDD is powered off. Another form of storage happens in *flash memory*. Portable storage devices like USB drives make use of flash memory and are referred to as Solid State Drives ( SSD ). SSDs make use of semiconductor chips, rather than magnetic media, to store data.
 
-Perhaps you've heard the term 'RAM', but perhaps not. RAM stands for 'Random Access Memory' and is more often than not the specific form of memory people are referring to when they talk about a computer's 'memory'. For instance, if you're looking to buy a new laptop, one of the first things you look for in the specification is its memory, ie. how many gigabytes ( GB ) of RAM does it have. Well why is this important? By it's very nature, accessing your computer's RAM is incredibly fast! The reason for this is inferred from it's name, ie. 'random access'. RAM is a form of integrated circuit ( remember those? ). RAM's speed is a result of the fact that data can be read and/or written at the same speed no matter where in the memory the data is stored. Read/Write speeds of storage like HDDs depends very much on the data's physical location on the disc. Okay, now we know what RAM is, but what do we do with it?
+Perhaps you've heard the term 'RAM', but perhaps not. RAM stands for 'Random Access Memory' and is more often than not the specific form of memory people are referring to when they talk about a computer's 'memory'. For instance, if you're looking to buy a new laptop, one of the first things you look for in the specification is its memory, ie. how many gigabytes ( GB ) of RAM does it have. Why is this important? By it's very nature, accessing your computer's RAM is incredibly fast! The reason for this is inferred from it's name, ie. 'random access'. RAM is a form of integrated circuit. RAM's speed is a result of the fact that data can be read and/or written at the same speed no matter where in the memory the data is stored. Read/Write speeds of storage like HDDs depends very much on the data's physical location on the disc. Okay, now we know what RAM is, but what do we do with it?
 
-When you double click an executable file on your computer ( for example a .exe file on Windows, or an application on Mac OSX ), or you run a sketch that you've created in something like p5.js, processing, openFrameworks, or Cinder, your computer allocates it a large chunk of contiguous ( meaning sequential ) memory in your RAM. In a physical sense we can think of this as n-number of sequential transisors set aside to store n-bytes of data ( the size is of which determined by your computer at runtime ). We can think of this conceptually as a 'block' of memory. Now, the important thing to understand here is that your computer keeps track of the location of where every byte of data is stored. It does this using something called a memory *address*. You can think of it as being analogous to your street address where you live. You can give someone your address, which is essentially just a collection of characters ( remember ASCII ), and they'll know how to find you. The location of each byte in memory has a physical address ( that looks something like this **0x101d00a70** ), which tells the computer where to look for that specific piece of data. So how do we store information at one of these addresses? We do this using *variables*.
+When you double click an executable file on your computer ( for example a .exe file on Windows, or an application on Mac OSX ), or you run a sketch that you've created in something like p5.js, processing, openFrameworks, or Cinder, your computer allocates it a large chunk of contiguous ( meaning sequential ) memory in your RAM. In a physical sense we can think of this as n-number of sequential transisors set aside to store n-bytes of data ( the size is of which determined by your computer at runtime ). We can think of this conceptually as a 'block' of memory. Now, the important thing to understand here is that your computer keeps track of the location of where every byte of data is stored. It does this using something called a memory *address*. You can think of it as being analogous to your street address where you live. You can give someone your address, which is essentially just a collection of characters ( remember ASCII ), and they'll know how to find you. The location of each byte in memory has a physical address ( that looks something like this **0x101d00a70** <-- there's hexadecimal again! ), which tells the computer where to look for that specific piece of data. So how do we store information at one of these addresses? We do this using *variables*.
 
 ## Variables
 
 A variable essentially represents a piece of data that is stored at a specific location in your computers physical memory. If you think about it, you can change the value of the variable, but the variable name itself remains unchanged. In the same way, think about the house or apartment that you currently live in, the address never changes, but over the years the occupants change.
 
-In most languages (not javascript), you need to tell the computer what *type* of variable you want. This is the key difference between **Static Typing** and **Dynamic Typing**.
+In most languages (not python), you need to tell the computer what *type* of variable you want. This is the key difference between **Static Typing** and **Dynamic Typing**.
 
 - Static Typing is where the type is bound to a variable. Types are checked at compile time. Java, C++, and C are static typed languages.
   - In Java, for example
     `String s = "text";`
     s will be a string forever. We can change "text" to something different or assign it to null, but s will never be an int or a boolean.
 - Dynamic Typing is where the type is bound to the value. Types are checked at run time. Javascript, PHP, and Python are dynamically typed languages.
-  - In Javascript, for example
+  - In JavaScript, for example
 
 ```
 var a = "text";
@@ -152,20 +162,17 @@ So, to summarize, declaring and intializing ( ie. assigning it a value ) a varia
 To use a variable there are two steps:
 
 1. Declare - here you declare to the compiler that you are going to use the variable you have declared. A declaration contains 2 parts, a data type (if you are using a dynamically typed language) and a name.
+   - [ ] Example: `int x;` In dynamically typed languages we tend to declare and assign at the same time
+2. Assignment - here you give your variable a value using the equal sign. *You must declare a variable before you can assign it a value.*
+   - [ ] Example: `x=42;`
 
-- Example: `int x;`
+You can also declare and assign variables in one line: `int x = 42;`(statically typed) OR `x = 42`(dynamically typed)
 
-1. Assignment - here you give your variable a value using the equal sign. *You must declare a variable before you can assign it a value.*
+It is good practice to have descriptive variable names like `length_squared` or `number_of_coins`. For C languages, like C++, and Python it is convention to have all variable names all lowercased with underscores between words.
 
-- Example: `x=42;`
+Let's look at the following code (the following code snippets are examples of a statically typed language)
 
-You can also declare and assign variables in one line: `int x = 42;`
-
-It is good practice to have descriptive variable names like `length_squared` or `number_of_coins`. For C languages, like C++, it is convention to have all variable names all lowercased with underscores between words.
-
-Let's look at the following code:
-
-```
+```java
 int x = 42;
 int y = x + 1;
 x = 5;
@@ -175,7 +182,7 @@ What is y now equal to? If you said 43, you're correct. Even though x now equals
 
 Let's look at another block of code:
 
-```
+```java
 int x;
 x = x + 1;
 ```
@@ -188,26 +195,5 @@ An algorithm is a set of step-by-step instructions a computer program follows to
 
 - Just like a recipe or a set of driving directions
 - Most often, there are multiple ways to write a single algorithm
-  - Usually there is no single 'best' option, best each algorithm will have pros and cons
-
-## Arrays
-
-An array is a large block of memory. If we have an array with 10 elements, it just means we have enough memory to store 10 elements.
-
-If you have ten integers in your array and each integer is four bytes, your array is forty bytes of memory. The first four bytes represent array[0], the next four bytes represent array[1], etc.
-
-There are two ways to declare an array:
-
-1. `int x[N];`
-
-- This declares array x to be of size N
-- The memory for this array goes on the stack
-- automatically deallocated
-- not a variable (you cannot change the size of x), you can think of it as a constant
-
-1. `int *x = malloc(sizeof(int) * N);`
-
-- This also declares array x to be of size N
-- The memory for this array goes onto the heap
-- Must explicity call free on this array or you will have a memory leak
-- Here x is a variable, and we have two separate blocks of memory. The variable x is stored in the stack and is just a pointer which stores the memory address to the large block of memory stored on the heap.
+  - Usually there is no single 'best' option, each algorithm will have pros and cons
+  - General rule to determine if you have a 'good' algorithm is to keep it DRY (don't repeat yourself)
