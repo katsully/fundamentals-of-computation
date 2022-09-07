@@ -81,7 +81,7 @@ How does that work? We'll go more into this process later but all code is conver
 
 So what's hexadecimal? If you've used an advanced color picker before, you may have seen it!
 
-![color-picker](C:\Users\kat.sullivan\School\Classes\fundamentals-of-computation\Class01\color-picker.png)
+![](C:\Users\kat.sullivan\School\Classes\fundamentals-of-computation\Class01\color-picker.png)
 
 `#2D4D9B` is hexadecimal. We can tell because there's a # followed by a series of numbers and letters between A and F. It can also be written as `0x2D4D9B` where 0x indicates a hex number.
 
